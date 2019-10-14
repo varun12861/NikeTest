@@ -10,9 +10,24 @@ import UIKit
 
 class HomeTableViewCell: UITableViewCell {
 
-    var albumImageView:UIImageView = UIImageView()
-    var nameLbl:UILabel = UILabel()
-    var titleLbl:UILabel = UILabel()
+    lazy var albumImageView:UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = UIColor.yellow
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    var nameLbl:UILabel = {
+       let label = UILabel()
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+       return label
+    }()
+    var titleLbl:UILabel = {
+       let label = UILabel()
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+       return label
+    }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -45,16 +60,6 @@ class HomeTableViewCell: UITableViewCell {
         self.contentView.addSubview(nameLbl)
         self.contentView.addSubview(titleLbl)
 
-        nameLbl.numberOfLines = 0
-        titleLbl.numberOfLines = 0
-        albumImageView.backgroundColor = UIColor.yellow
-
-        
-        albumImageView.translatesAutoresizingMaskIntoConstraints = false
-        nameLbl.translatesAutoresizingMaskIntoConstraints = false
-        titleLbl.translatesAutoresizingMaskIntoConstraints = false
-        
-        
         UIView.setConstraints(for:albumImageView, toParent: self.contentView, leading:20.0, height:100.0, width:100.0,hasTrailing:false, hasTop:false, hasBottom:false, hasCenterY:true)
 
         

@@ -16,34 +16,28 @@ protocol HomeViewControllerProtocol:class {
 final class HomeViewController: UIViewController {
 
     var homeViewModel:HomeViewModel<Service<MusicFeeds>>?
-    var tableView:UITableView?
     
+    lazy var tableView:UITableView = {
+         let tableView = UITableView()
+         tableView.dataSource = self
+         tableView.delegate = self
+         tableView.register(HomeTableViewCell.self, forCellReuseIdentifier:"cell")
+         tableView.translatesAutoresizingMaskIntoConstraints = false
+         return tableView
+    }()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
         homeViewModel = HomeViewModel(homeViewControllerProtocol: self, service:Service())
         homeViewModel?.getMusicFeeds()
         configureUI()
     }
     
     fileprivate func configureUI() {
-    
-        tableView = UITableView()
-        if let tableView = tableView {
-            
-            self.view.addSubview(tableView)
-
-            tableView.register(HomeTableViewCell.self, forCellReuseIdentifier:"cell")
-            tableView.dataSource = self
-            tableView.delegate = self
-            
-            tableView.translatesAutoresizingMaskIntoConstraints = false
-            UIView.setConstraints(for:tableView, toParent: self.view)
-        }
+        self.view.addSubview(tableView)
+        UIView.setConstraints(for:tableView, toParent: self.view)
     }
     
     fileprivate func moveToDetailVC(for indexPath:IndexPath) {
@@ -96,9 +90,9 @@ extension HomeViewController:UITableViewDelegate {
 
 extension HomeViewController:HomeViewControllerProtocol {
     func refreshUI() {
-        tableView?.reloadData()
+        tableView.reloadData()
     }
     func refreshTablView(for indexPath:IndexPath) {
-        tableView?.reloadRows(at:[indexPath], with: UITableView.RowAnimation.automatic)
+        tableView.reloadRows(at:[indexPath], with: UITableView.RowAnimation.automatic)
     }
 }

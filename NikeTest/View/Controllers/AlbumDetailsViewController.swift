@@ -14,14 +14,39 @@ protocol AlbumDetailsViewControllerrotocol:class {
 
 final class AlbumDetailsViewController: UIViewController {
 
-    let scrollView = UIScrollView()
-    let albumImageView = UIImageView()
-    var parentVerticalView:UIStackView!
-    let titleLbl = UILabel()
-    let nameLbl = UILabel()
-    let relaseDatebl = UILabel()
-    let copyRightMessageLbl = UILabel()
-    let openInItunesBtn = UIButton(type: UIButton.ButtonType.custom)
+    lazy var scrollView:UIScrollView = {
+        let scrollView = UIScrollView()
+        return scrollView
+    }()
+    lazy var albumImageView:UIImageView = {
+       let imageView =   UIImageView()
+        return imageView
+    }()
+    lazy var parentVerticalView:UIStackView = {
+        let parentVerticalView  =  UIStackView.createStackView(elements:[] ,axis: .vertical, alignment:.fill, distribution:.fill,spacing:5.0)
+        return parentVerticalView
+    }()
+    lazy var titleLbl:UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    lazy var nameLbl:UILabel = {
+       let label = UILabel()
+        return label
+    }()
+    lazy var relaseDatebl:UILabel = {
+       let label = UILabel()
+        return label
+    }()
+    lazy var copyRightMessageLbl:UILabel = {
+       let label = UILabel()
+        return label
+    }()
+    lazy var openInItunesBtn:UIButton = {
+       let btn = UIButton(type: UIButton.ButtonType.custom)
+       return btn
+    }()
+    
     var genreStackViews:[UIStackView] = []
     
     var viewModel:AlbumDetailViewModel?{
@@ -42,8 +67,13 @@ final class AlbumDetailsViewController: UIViewController {
         
         self.view.addSubview(scrollView)
                 
-        parentVerticalView  =  UIStackView.createStackView(elements: [albumImageView,titleLbl,nameLbl,relaseDatebl,copyRightMessageLbl],axis: .vertical, alignment:.fill, distribution:.fill,spacing:5.0)
-        
+            
+        parentVerticalView.addArrangedSubview(albumImageView)
+        parentVerticalView.addArrangedSubview(titleLbl)
+        parentVerticalView.addArrangedSubview(nameLbl)
+        parentVerticalView.addArrangedSubview(relaseDatebl)
+        parentVerticalView.addArrangedSubview(copyRightMessageLbl)
+
         for genre in genreStackViews {
             parentVerticalView.addArrangedSubview(genre)
         }
