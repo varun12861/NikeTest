@@ -41,9 +41,7 @@ class HomeViewModel<T:ServiceProtocol>:HomeViewModelProtocol {
             case .success(let model):
                 self?.musicFeed = model as? MusicFeeds
             case .failure(let error):
-                
-//                self?.errorMessage = error.localizedDescription
-//
+                // Need to handle error case. 
                 print(error.localizedDescription)
             }
         }
